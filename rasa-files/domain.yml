@@ -1,0 +1,208 @@
+version: "2.0"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - thank_you
+  - bot_challenge
+  - order_fish
+
+entities:
+  - fish_type
+  - fish_menu
+  - fish_variety
+  - with_or_without_wine
+  - wine_type
+  - confirm_order
+  - kg
+  - confirm_price
+  - payment_type
+
+slots:
+  fish_type:
+    type: text
+  fish_menu:
+    type: text
+  fish_variety:
+    type: text
+  with_or_without_wine:
+    type: text
+  wine_type:
+    type: text
+  confirm_order:
+    type: text
+  kg:
+    type: text
+  confirm_price:
+    type: text
+  payment_type:
+    type: text
+
+responses:
+  utter_greet:
+  - text: "Hello, 👋 I'm Nemo, your CityFishMart AI chat assistant. I can help you with the below ones."
+    buttons:
+    - title: "Order Fish"
+      payload: /order_fish
+    - title: "Get Fish Varieties"
+      payload: /order_fish
+
+  utter_cheer_up:
+  - text: "Here is something to cheer you up:"
+    image: "https://i.imgur.com/nGF1K8f.jpg"
+
+  utter_did_that_help:
+  - text: "Did that help you?"
+
+  utter_happy:
+  - text: "Great, carry on!"
+
+  utter_goodbye:
+  - text: "Bye"
+
+  utter_iamabot:
+  - text: "I am a bot, powered by Rasa."
+
+  utter_welcome:
+  - text: "You are welcome. Have a nice day.🙂"
+
+  utter_ask_fish_type:
+  - text: "We have the below types of fish varieties. Which one to try?"
+    buttons:
+    - title: "Cooked Fish"
+      payload: /order_fish{"fish_type":"cooked fish"}
+    - title: "Fresh Fish"
+      payload: /order_fish{"fish_type":"fresh fish"}
+
+  utter_ask_fish_menu:
+  - text: "Below are the COOKED FISH MENU"
+    buttons:
+    - title: "Catala"
+      payload: /order_fish{"fish_menu":"catala"}
+    - title: "Cat Fish"
+      payload: /order_fish{"fish_menu":"cat fish"}
+    - title: "Crab"
+      payload: /order_fish{"fish_menu":"crab"}
+    - title: "Prawn"
+      payload: /order_fish{"fish_menu":"prawn"}
+
+  utter_ask_fish_variety:
+  - text: "Type of varieties we have for - CATALA FISH"
+    buttons:
+    - title: "CATALA Fry"
+      payload: /order_fish{"fish_variety":"catala fry"}
+    - title: "CATALA Duglere"
+      payload: /order_fish{"fish_variety":"catala duglere"}
+    - title: "CATALA Prepare Crispy Pan"
+      payload: /order_fish{"fish_variety":"catala prepare crispy pan"}
+    - title: "CATALA Chettinad Fish Fry"
+      payload: /order_fish{"fish_variety":"catala chettinad fish fry"}
+
+  utter_ask_with_or_without_wine:
+  - text: "Do you want to order wine too?"
+    buttons:
+    - title: "Yes"
+      payload: /order_fish{"with_or_without_wine":"yes"}
+    - title: "No"
+      payload: /order_fish{"with_or_without_wine":"no"}
+
+  utter_ask_wine_type:
+  - text: "WINE Types we have,"
+    buttons:
+    - title: "Red Wine"
+      payload: /order_fish{"wine_type":"red wine"}
+    - title: "Grape Wine"
+      payload: /order_fish{"wine_type":"grape wine"}
+    - title: "Fruit Wine"
+      payload: /order_fish{"wine_type":"fruit wine"}
+    - title: "Pink Wine"
+      payload: /order_fish{"wine_type":"pink wine"}
+
+  utter_ask_confirm_order:
+  - text: "Can you confirm the order to proceed?"
+    buttons:
+    - title: "Yes"
+      payload: /order_fish{"confirm_order":"yes"}
+    - title: "No"
+      payload: /order_fish{"confirm_order":"no"}
+
+  utter_ask_kg:
+  - text: "How many KG would you like to order?"
+
+  utter_ask_confirm_price:
+  - text: "1 KG = Rs.560<br><br>Can you confirm the order to proceed?"
+    buttons:
+    - title: "Yes"
+      payload: /order_fish{"confirm_price":"yes"}
+    - title: "No"
+      payload: /order_fish{"confirm_price":"no"}
+
+  utter_ask_payment_type:
+  - text: "How you want to make the payments?"
+    buttons:
+    - title: "Net Banking"
+      payload: /order_fish{"payment_type":"netbanking"}
+    - title: "GPay"
+      payload: /order_fish{"payment_type":"gpay"}
+    - title: "Phonepe"
+      payload: /order_fish{"payment_type":"phonepe"}
+    - title: "Paytm"
+      payload: /order_fish{"payment_type":"paytm"}
+    - title: "Credit/Debit card"
+      payload: /order_fish{"payment_type":"credit/debit card"}
+    - title: "Cash on Delivery"
+      payload: /order_fish{"payment_type":"cash on delivery"}
+    
+
+actions:
+  - action_order_fish
+  - validate_order_fish_form
+
+
+forms:
+  order_fish_form:
+    fish_type:
+      - type: from_entity
+        entity: fish_type
+      - type: from_text
+    fish_menu:
+      - type: from_entity
+        entity: fish_menu
+      - type: from_text
+    fish_variety:
+      - type: from_entity
+        entity: fish_variety
+      - type: from_text
+    with_or_without_wine:
+      - type: from_entity
+        entity: with_or_without_wine
+      - type: from_text
+    wine_type:
+      - type: from_entity
+        entity: wine_type
+      - type: from_text
+    confirm_order:
+      - type: from_entity
+        entity: confirm_order
+      - type: from_text
+    kg:
+      - type: from_entity
+        entity: kg
+      - type: from_text
+    confirm_price:
+      - type: from_entity
+        entity: confirm_price
+      - type: from_text
+    payment_type:
+      - type: from_entity
+        entity: payment_type
+      - type: from_text
+
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

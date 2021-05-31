@@ -1,0 +1,37 @@
+version: "2.0"
+
+rules:
+
+- rule: Say goodbye anytime the user says goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: Say 'I am a bot' anytime the user challenges
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
+- rule: Say 'welcome' anytime the user thanks
+  steps:
+  - intent: thank_you
+  - action: utter_welcome
+
+- rule: Activate order_fish_form
+  steps:
+  - intent: order_fish
+  - action: order_fish_form
+  - active_loop: order_fish_form
+
+- rule: Submit order_fish_form
+  condition:
+  # Condition that form is active.
+  - active_loop: order_fish_form
+  steps:
+  # Form is deactivated
+  - action: order_fish_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  # The actions we want to run when the form is submitted.
+  - action: action_order_fish
